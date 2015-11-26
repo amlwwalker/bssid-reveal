@@ -5,6 +5,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.swing.JOptionPane;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -79,22 +81,30 @@ public final class Main {
 		conn.setDoOutput(true);
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-Type", "application/json");
-		OutputStream os = conn.getOutputStream();
-		os.write(jsonString.getBytes());
-		os.flush();
-		int responseCode = conn.getResponseCode();
-
-		//get result if there is one
-		if(responseCode == 200) //HTTP 200: Response OK
-		{
-		    String result = "";
-		    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		    String output;
-		    while((output = br.readLine()) != null)
-		    {
-		        result += output;
-		    }
-		    System.out.println("Response message: " + result);
+		
+		try {
+			OutputStream os = conn.getOutputStream();	
+			os.write(jsonString.getBytes());
+			os.flush();
+			int responseCode = conn.getResponseCode();
+			//get result if there is one
+			if(responseCode == 200) //HTTP 200: Response OK
+			{
+			    String result = "";
+			    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			    String output;
+			    while((output = br.readLine()) != null)
+			    {
+			        result += output;
+			    }
+			    System.out.println("Response message: " + result);
+			    JOptionPane.showMessageDialog(null, result, "Response",
+	                    JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (java.net.ConnectException e) {
+			JOptionPane.showMessageDialog(null, e + " by server\r\nBailing out.", "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
+			System.out.println("error " + e);
 		}
 	}
 	private void getGeoLocation() throws IOException {

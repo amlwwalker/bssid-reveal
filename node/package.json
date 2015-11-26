@@ -1,0 +1,10 @@
+{
+  "name": "booking-dojo",
+  "description": "Booking dojo app",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.8.1",
+    "express": "^4.9.0"
+  }
+}

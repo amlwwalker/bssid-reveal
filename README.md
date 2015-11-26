@@ -20,3 +20,7 @@ java -jar connect.jar
 
 It will thank you for helping out once complete.
 
+### Development
+
+If you want to help develop, you should be able to import it to Eclipse
+
